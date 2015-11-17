@@ -102,7 +102,7 @@ public final class PluginManager implements PluginList<PluginLoader> {
 		
 		// If the plugin is not on the list of
 		// disabled plugins, enable it.
-		if (!disabled.contains(name))
+		if (disabled == null || !disabled.contains(name))
 			setPluginEnabled(this, loader, true);
 		
 		return true;

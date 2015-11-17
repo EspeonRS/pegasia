@@ -1,9 +1,6 @@
 package org.pegasia.client.plugin.manager;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
-
-import javax.swing.SwingUtilities;
 
 import org.pegasia.api.PluginConfigPanel;
 import org.pegasia.client.plugin.PluginEntry;
@@ -39,19 +36,9 @@ class PLListEntry implements PluginEntry {
 	}
 
 	synchronized PluginConfigPanel getPanel() {
-		if (panel == null) try {
-			SwingUtilities.invokeAndWait(new Runnable() {
-				@Override
-				public void run() {
-					try {
-						panel = loader.newConfig();
-					} catch (Exception e) {
-						System.err.println("Exception while creating config panel for plugin: " + loader.getName());
-						e.printStackTrace();
-					}
-				}
-			});
-		} catch (InvocationTargetException | InterruptedException e) {
+		if (panel == null)try {
+			panel = loader.newConfig();
+		} catch (Exception e) {
 			System.err.println("Exception while creating config panel for plugin: " + loader.getName());
 			e.printStackTrace();
 		}
